@@ -89,6 +89,7 @@ print'
                         <li><a href="../bodegas" target="_blank"><i class="fa fa-circle-o"></i>Bodegas</a></li>
                         <li><a href="../categorias" target="_blank"><i class="fa fa-circle-o"></i>Categorias</a></li>
                         <li><a href="../marcas" target="_blank"><i class="fa fa-circle-o"></i>Marcas</a></li>
+                        <li><a href="../colores" target="_blank"><i class="fa fa-circle-o"></i>Colores</a></li>
                         <li><a href="../medida" target="_blank"><i class="fa fa-circle-o"></i>Unidades Productos</a></li>
                       </ul>
                     </li>
@@ -167,6 +168,19 @@ print'
                 <li><a href="../gastos" target="_blank"><i class="fa fa-circle-o"></i>Gastos Internos</a></li>
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="">
+                <i class="fa fa-laptop"></i> <span>Mantenimiento</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../registro_equipo" target="_blank"><i class="fa fa-circle-o"></i> Ingreso Equipos</a></li>
+                <li><a href="../proveedores" target="_blank"><i class="fa fa-circle-o"></i> Proveedores</a></li>
+                <li><a href="../clientes" target="_blank"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                <li><a href="../productos" target="_blank"><i class="fa fa-circle-o"></i> Productos</a></li>
+              </ul>
+            </li>
+
             <li>
               <a href=""><i class="fa fa-circle-o"></i>Reportes<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">                

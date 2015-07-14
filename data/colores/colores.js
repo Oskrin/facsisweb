@@ -4,12 +4,6 @@ function openPDF(){
 window.open('../../ayudas/ayuda.pdf');
 }
 
-$(function() {
-    $('#main-menu').smartmenus({
-        subMenusSubOffsetX: 1,
-        subMenusSubOffsetY: -8
-    });
-});
 function inicio() {
     $(window).bind('resize', function() {
         jQuery("#list").setGridWidth($('#centro').width() - 10);

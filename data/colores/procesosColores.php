@@ -18,7 +18,7 @@ if ($_POST['oper'] == "add") {
         $repe++;
     }
     if ($repe == 0) {
-        pg_query("insert into color values('$cont','$_POST[nombre_Color]','Activo')");
+        pg_query("insert into color values('$cont','".strtoupper($_POST['nombre_Color'])."','Activo')");
     }
 }
 if ($_POST['oper'] == "edit") {

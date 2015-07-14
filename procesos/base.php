@@ -1,7 +1,7 @@
 <?php
 
 function conectarse() {
-    if (!($conexion = pg_pconnect("host=localhost port=5432 dbname=editorial user=postgres password=sisweb"))) {
+    if (!($conexion = pg_pconnect("host=localhost port=5432 dbname=facsisweb user=postgres password=sisweb"))) {
         exit();
     } else {
         
