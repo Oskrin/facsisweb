@@ -1,24 +1,17 @@
 $(document).on("ready", inicio);
 
-$(function() {
-    $('#main-menu').smartmenus({
-        subMenusSubOffsetX: 1,
-        subMenusSubOffsetY: -8
-    });
-});
-
 var formatoFecha = {
-    showButtonPanel: true,
-    changeMonth: true,
-    changeYear: true,
+    // showButtonPanel: true,
+    // changeMonth: true,
+    // changeYear: true,
     dateFormat: "yy-mm-dd" + "  " + getCurrentTime(),
     showAnim: 'slide'
 };
 
 var formatoFecha1 = {
-    showButtonPanel: true,
-    changeMonth: true,
-    changeYear: true,
+    // showButtonPanel: true,
+    // changeMonth: true,
+    // changeYear: true,
     dateFormat: "yy-mm-dd",
     showAnim: 'slide'
 };
@@ -68,41 +61,47 @@ function getCurrentTime() {
 function guardarRegistro() {
     if($("#txtClienteId").val() === ""){
         $("#txtCliente").focus(); 
-        alertify.alert("Ingrese un cliente");
+        alertify.error("Ingrese un cliente");
     }else{
-        if($("#txtTipoEquipoId").val() === ""){
-             $("#txtTipoEquipo").focus();
-            alertify.alert("Ingrese el tipo de equipo");
+        if($("#categoria").val() === ""){
+             $("#categoria").focus();
+            alertify.error("Ingrese el tipo de equipo");
         }else{
             if($("#txtModelo").val() === ""){
                 $("#txtModelo").focus(); 
-                alertify.alert("Ingrese un modelo");
+                alertify.error("Ingrese un modelo");
             }else{
                 if($("#txtSerie").val() === ""){
                     $("#txtSerie").focus();
-                    alertify.alert("Ingrese la serie");
+                    alertify.error("Ingrese la serie");
                 }else{
-                    if($("#txtColorId").val() === ""){
-                        $("#txtColor").focus(); 
-                        alertify.alert("Ingrese un color");
+                    if($("#marca").val() === ""){
+                        $("#marca").focus(); 
+                        alertify.error("Ingrese un marca");
                     }else{
-                        if($("#txtMarcaId").val() === ""){
-                            $("#txtMarca").focus();
-                            alertify.alert("Ingrese una marca");
+                        if($("#color").val() === ""){
+                            $("#color").focus();
+                            alertify.error("Ingrese una color");
                         }else{
                             $.ajax({
                                 type: "POST",
-                                url: "../procesos/procesosRegistroEquipo.php",
-                                data: "txtRegistro=" + $("#txtRegistro").val() + "&txtClienteId=" + $("#txtClienteId").val() + "&txtIngreso=" + $("#txtIngreso").val() + "&txtTipoEquipoId=" + $("#txtTipoEquipoId").val() + "&txtModelo=" + $("#txtModelo").val() + "&txtSerie=" + $("#txtSerie").val() + "&txtColorId=" + $("#txtColorId").val() + "&txtMarcaId=" + $("#txtMarcaId").val() + "&txtObservaciones=" + $("#txtObservaciones").val() + "&txtAccesorios=" + $("#txtAccesorios").val() + "&txtSalida=" + $("#txtSalida").val() + "&tipo=" + "g",
+                                url: "procesosRegistroEquipo.php",
+                                data: $("#registro_form").serialize() + "&tipo=" + "g",
                                 success: function(data) {
                                     var val = data;
                                     if (val == 0) {
-                                        alertify.alert("Datos Guardados", function(){
-                                        id = $("#txtRegistro").val();
-                                        window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
-                                        limpiarDatos();
-                                        $("#txtRegistro").val(parseInt(id) + 1);   
+                                        alertify.alert("Datos Agregados Correctamente", function(){
+                                        // id = $("#txtRegistro").val();
+                                        // window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
+                                        // limpiarDatos();
+                                        // $("#txtRegistro").val(parseInt(id) + 1);   
                                         });
+
+                                        // alertify.success('Datos Agregados Correctamente');                                  
+                                        // setTimeout(function() {
+                                        // location.reload();
+                                        // }, 1000);
+
                                     } 
                                     if (val == 1) {
                                         alertify.alert("Error.. durante el proceso");
@@ -120,27 +119,27 @@ function guardarRegistro() {
 function modificarRegistro(e){
     if($("#txtClienteId").val() === ""){
         $("#txtCliente").focus(); 
-        alertify.alert("Ingrese un registro");
+        alertify.error("Ingrese un registro");
     }else{
         if($("#txtTipoEquipoId").val() === ""){
             $("#txtTipoEquipo").focus(); 
-            alertify.alert("Ingrese el tipo de equipo");
+            alertify.error("Ingrese el tipo de equipo");
         }else{
             if($("#txtModelo").val() === ""){
                 $("#txtModelo").focus(); 
-                alertify.alert("Ingrese un modelo");
+                alertify.error("Ingrese un modelo");
             }else{
                 if($("#txtSerie").val() === ""){
                     $("#txtSerie").focus();
-                    alertify.alert("Ingrese la serie");
+                    alertify.error("Ingrese la serie");
                 }else{
                     if($("#txtColorId").val() === ""){
                         $("#txtColor").focus(); 
-                        alertify.alert("Ingrese un color");
+                        alertify.error("Ingrese un color");
                     }else{
                         if($("#txtMarcaId").val() === ""){
                             $("#txtMarca").focus();
-                            alertify.alert("Ingrese una marca");
+                            alertify.error("Ingrese una marca");
                         }else{
                             $.ajax({
                                 type: "POST",
@@ -175,8 +174,7 @@ function flecha_atras(){
     $.getJSON('../procesos/retornar_registro_equipo.php?com=' + valor, function(data) {
         var tama = data.length;
         if (tama !== 0) {
-            for (var i = 0; i < tama; i = i + 17)
-            {
+            for (var i = 0; i < tama; i = i + 17) {
                     
                 $("#txtRegistro").val(data[i]);
                 $("#txtClienteId").val(data[i + 1]);
@@ -212,8 +210,7 @@ function flecha_siguiente(){
         $.getJSON('../procesos/retornar_registro_equipo2.php?com=' + valor, function(data) {
             var tama = data.length;
             if (tama !== 0) {
-                for (var i = 0; i < tama; i = i + 17)
-                {
+                for (var i = 0; i < tama; i = i + 17) {
                     
                     $("#txtRegistro").val(data[i]);
                     $("#txtClienteId").val(data[i + 1]);
@@ -274,8 +271,30 @@ function limpiar_campo4(){
     }
 }
 
-function inicio()
-{
+function inicio() {
+    /////////////cambiar idioma///////
+     $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+    //////////////////////////////////////
+    alertify.set({ delay: 1000 });
+    $("#txtCliente").focus();
+
     $("#btnGuardar").click(function(e) {
         e.preventDefault();
     });
@@ -301,6 +320,7 @@ function inicio()
     $("#btnImprimir").click(function (){        
         window.open("../reportes/reportes/reporteRegistro.php?id=" + $("#txtRegistro").val());
     });
+
     $("#bRegistros").dialog(dialogos);
     $("#btnBuscar").on("click", abrirDialogo);
     $("#btnGuardar").on("click", guardarRegistro);
@@ -316,26 +336,10 @@ function inicio()
     $("#txtColor").on("keyup", limpiar_campo3);
     $("#txtMarca").on("keyup", limpiar_campo4);
 
-    $("#txtColor").autocomplete({
-        source: "../procesos/busquedaColor.php",
-        minLength: 1,
-        focus: function(event, ui) {
-        $("#txtColor").val(ui.item.value);
-        $("#txtColorId").val(ui.item.label);
-        return false;
-        },
-        select: function(event, ui) {
-        $("#txtColor").val(ui.item.value);
-        $("#txtColorId").val(ui.item.label);
-        return false;
-        }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-        return $("<li>")
-        .append("<a>" + item.value + "</a>")
-        .appendTo(ul);
-    };
+
+    //////////////////BUSCADORES////////////////////
     $("#txtCliente").autocomplete({
-        source: "../procesos/busquedaCliente.php",
+        source: "busquedaCliente.php",
         minLength: 1,
         focus: function(event, ui) {
         $("#txtCliente").val(ui.item.value);
@@ -352,76 +356,106 @@ function inicio()
         .append("<a>" + item.value + "</a>")
         .appendTo(ul);
     };
-    $("#txtTipoEquipo").autocomplete({
-        source: "../procesos/busquedaEquipo.php",
-        minLength: 1,
-        focus: function(event, ui) {
-        $("#txtTipoEquipo").val(ui.item.value);
-        $("#txtTipoEquipoId").val(ui.item.label);
-        return false;
-        },
-        select: function(event, ui) {
-        $("#txtTipoEquipo").val(ui.item.value);
-        $("#txtTipoEquipoId").val(ui.item.label);
-        return false;
-        }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-        return $("<li>")
-        .append("<a>" + item.value + "</a>")
-        .appendTo(ul);
-    };
-    $("#txtMarca").autocomplete({
-        source: "../procesos/busquedaMarca.php",
-        minLength: 1,
-        focus: function(event, ui) {
-        $("#txtMarca").val(ui.item.value);
-        $("#txtMarcaId").val(ui.item.label);
-        return false;
-        },
-        select: function(event, ui) {
-        $("#txtMarca").val(ui.item.value);
-        $("#txtMarcaId").val(ui.item.label);
-        return false;
-        }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-        return $("<li>")
-        .append("<a>" + item.value + "</a>")
-        .appendTo(ul);
-    };
+
+    // $("#txtTipoEquipo").autocomplete({
+    //     source: "busquedaEquipo.php",
+    //     minLength: 1,
+    //     focus: function(event, ui) {
+    //     $("#txtTipoEquipo").val(ui.item.value);
+    //     $("#txtTipoEquipoId").val(ui.item.label);
+    //     return false;
+    //     },
+    //     select: function(event, ui) {
+    //     $("#txtTipoEquipo").val(ui.item.value);
+    //     $("#txtTipoEquipoId").val(ui.item.label);
+    //     return false;
+    //     }
+    //     }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    //     return $("<li>")
+    //     .append("<a>" + item.value + "</a>")
+    //     .appendTo(ul);
+    // };
+
+    // $("#txtColor").autocomplete({
+    //     source: "busquedaColor.php",
+    //     minLength: 1,
+    //     focus: function(event, ui) {
+    //     $("#txtColor").val(ui.item.value);
+    //     $("#txtColorId").val(ui.item.label);
+    //     return false;
+    //     },
+    //     select: function(event, ui) {
+    //     $("#txtColor").val(ui.item.value);
+    //     $("#txtColorId").val(ui.item.label);
+    //     return false;
+    //     }
+    //     }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    //     return $("<li>")
+    //     .append("<a>" + item.value + "</a>")
+    //     .appendTo(ul);
+    // };
+
+    // $("#txtMarca").autocomplete({
+    //     source: "busquedaMarca.php",
+    //     minLength: 1,
+    //     focus: function(event, ui) {
+    //     $("#txtMarca").val(ui.item.value);
+    //     $("#txtMarcaId").val(ui.item.label);
+    //     return false;
+    //     },
+    //     select: function(event, ui) {
+    //     $("#txtMarca").val(ui.item.value);
+    //     $("#txtMarcaId").val(ui.item.label);
+    //     return false;
+    //     }
+    //     }).data("ui-autocomplete")._renderItem = function(ul, item) {
+    //     return $("<li>")
+    //     .append("<a>" + item.value + "</a>")
+    //     .appendTo(ul);
+    // };
+
     ////////
     $.ajax({
         type: "POST",
-        url: "../procesos/contadorRegistro.php",
+        url: "contadorRegistro.php",
         success: function(data) {
             var val = data;
             $("#txtRegistro").val(val);
         }
     });
+
+    //cargar fechas/////
+    $("#txtIngreso").datepicker({
+        dateFormat: 'yy-mm-dd'
+    }).datepicker('setDate', 'today');
+
+    $("#txtSalida").datepicker({
+        dateFormat: 'yy-mm-dd'
+    }).datepicker('setDate', 'today');
+
+
     
         jQuery("#list").jqGrid({
-        url: '../xml/xmlRegistroEquipo.php',
+        url: 'xmlRegistroEquipo.php',
         datatype: 'xml',
-        colNames: ['Nro Registro', 'Nombres Cliente', 'Id Cliente', 'Fecha Ingreso', 'Fecha Salida', 'Nro. de Serie', 'Modelo', 'Id categoria', 'Tipo de Equipo', 'Id Marca', 'Marca', 'Id color', 'Nombre Color', 'Accesosios', 'Observaciones', 'Id Usuario', 'Registrado por', 'Id estado', 'Estado'],
+        colNames: ['Nro Registro', 'Id Cliente', 'Nombres Cliente', 'Id categoria', 'Tipo de Equipo', 'Fecha Ingreso', 'Fecha Salida', 'Modelo', 'Nro. de Serie', 'Id Marca', 'Marca', 'Id color', 'Nombre Color', 'Accesosios', 'Observaciones', 'Estado'],
         colModel: [
             {name: 'txtRegistro', index: 'txtRegistro', editable: true, align: 'center', width: '100', search: false, frozen: true},
-            {name: 'txtCliente', index: 'txtCliente', editable: true, align: 'center', width: '150', search: true, frozen: true},
             {name: 'txtClienteId', index: 'txtClienteId', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
+            {name: 'txtCliente', index: 'txtCliente', editable: true, align: 'center', width: '150', search: true, frozen: true},
+            {name: 'categoria', index: 'categoria', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
+            {name: 'txtTipoEquipo', index: 'txtTipoEquipo', editable: true, align: 'center', width: '150', search: true, frozen: true},
             {name: 'txtIngreso', index: 'txtIngreso', editable: true, align: 'center', width: '150', search: false, frozen: true},
             {name: 'txtSalida', index: 'txtSalida', editable: true, align: 'center', width: '120', search: false, frozen: true},
-            {name: 'txtSerie', index: 'txtSerie', editable: true, align: 'center', width: '150', search: true, frozen: true},
             {name: 'txtModelo', index: 'txtModelo', editable: true, align: 'center', width: '150', search: false, frozen: true},
-            {name: 'txtTipoEquipoId', index: 'txtTipoEquipoId', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
-            {name: 'txtTipoEquipo', index: 'txtTipoEquipo', editable: true, align: 'center', width: '150', search: true, frozen: true},
-            {name: 'txtMarcaId', index: 'txtMarcaId', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
+            {name: 'txtSerie', index: 'txtSerie', editable: true, align: 'center', width: '150', search: true, frozen: true},
+            {name: 'marca', index: 'marca', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
             {name: 'txtMarca', index: 'txtMarca', editable: true, align: 'center', width: '150', search: true, frozen: true},
-            {name: 'txtColorId', index: 'txtColorId', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
+            {name: 'colores', index: 'colores', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
             {name: 'txtColor', index: 'txtColor', editable: true, align: 'center', width: '150', search: true, frozen: true},
             {name: 'txtAccesorios', index: 'txtAccesorios', editable: true, align: 'center', width: '150', search: false, frozen: true},
             {name: 'txtObservaciones', index: 'txtObservaciones', editable: true, align: 'center', width: '150', search: false, frozen: true},
-            {name: 'id_user', index: 'id_user', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
-            {name: 'nombre_user', index: 'nombre_user', editable: true, align: 'center', width: '150', search: false, frozen: true},
-            {name: 'id_estado', index: 'id_estado', search: false, editable: false, hidden: true, editrules: {edithidden: false}, align: 'center', frozen: true, width: 80},
-            {name: 'Estado', index: 'Estado', editable: true, align: 'center', width: '150', search: true, frozen: true}
+            {name: 'estado', index: 'estado', editable: true, align: 'center', width: '150', search: true, frozen: true}
         ],
         rowNum: 10,
         rowList: [10, 20, 30],
@@ -431,14 +465,14 @@ function inicio()
         sortname: 'id_registro',
         shrinkToFit: false,
         sortorder: 'asc',
-        caption: 'Lista Recursos',
+        caption: 'Lista Registro',
         viewrecords: true,
         gridview: true,
         ondblClickRow: function() {
             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
             if (id) {
                 var ret = jQuery("#list").jqGrid('getRowData', id);
-                jQuery("#list").jqGrid('GridToForm', id, "#formRegistroEquipo");
+                jQuery("#list").jqGrid('GridToForm', id, "#registro_form");
                 $("#bRegistros").dialog('close');
                 $("#btnGuardar").attr("disabled", true);
             } else {
@@ -480,7 +514,7 @@ function inicio()
             var id = jQuery("#list").jqGrid('getGridParam', 'selrow');
             if (id) {
                 var ret = jQuery("#list").jqGrid('getRowData', id);
-                jQuery("#list").jqGrid('GridToForm', id, "#formRegistroEquipo");
+                jQuery("#list").jqGrid('GridToForm', id, "#registro_form");
                 $("#bRegistros").dialog('close');
                 $("#btnGuardar").attr("disabled", true);
             } else {

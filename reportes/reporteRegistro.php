@@ -21,7 +21,7 @@ $codigo = '<html>
 		<div id="linea">
 			<h3>FORMULARIO DE INGRESO DE EQUIPO</h3>
 		</div>';
-include '../../procesos/base.php';
+include '../procesos/base.php';
 conectarse();
 $consulta = pg_query("select * from registro_equipo,color,marcas,clientes,usuario,categoria where registro_equipo.id_color=color.id_color and registro_equipo.id_marca=marcas.id_marca and registro_equipo.id_cliente=clientes.id_cliente and registro_equipo.id_usuario=usuario.id_usuario and registro_equipo.id_categoria=categoria.id_categoria and registro_equipo.id_registro='$_GET[id]'");
 while ($row = pg_fetch_row($consulta)) {

@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include '../../procesos/base.php';
 include('../menu/app.php'); 
 ?>
 <!DOCTYPE html>
@@ -46,97 +47,110 @@ include('../menu/app.php');
               <div class="box box-primary">
                 <div class="box-body">
                   <div class="row">
-                      <form id="clientes_form" name="clientes_form" method="post">
+                      <form id="registro_form" name="registro_form" method="post">
                         <div class="col-mx-12">                    
                           <div class="col-md-6">
+
                             <div class="form-group">
-                              <label>Tipo Documento: <font color="red">*</font></label>
-                              <select class="form-control" name="tipo_docu" id="tipo_docu">
-                                <option value="Cedula">Cedula</option>
-                                <option value="Ruc">Ruc</option>
-                                <option value="Pasaporte">Pasaporte</option>
-                              </select>
-                              <input type="hidden" name="id_cliente"  id="id_cliente" readonly class="form-control">
+                              <label>Nombres Cliente: <font color="red">*</font></label>
+                              <input type="text" name="txtCliente"  id="txtCliente" placeholder="Buscar....." class="form-control" />
+                              <input type="hidden" id="txtClienteId" name="txtClienteId" class="form-control" />
+                              <input type="hidden" id="txtRegistro" name="txtRegistro" class="form-control" />
                             </div>
 
                             <div class="form-group">
-                              <label>Nombres Completos: <font color="red">*</font></label>
-                              <input type="text" name="nombres_cli"  id="nombres_cli" placeholder="Nombres y Apellidos" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                              <label>Teléfono:</label>
+                              <label>Fecha Ingreso: <font color="red">*</font></label>
                               <div class="input-group">
                                 <div class="input-group-addon">
-                                  <i class="fa fa-phone"></i>
+                                  <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" name="nro_telefono" id="nro_telefono" class="form-control" data-inputmask='"mask": "(999) 999-999"' data-mask/>
+                                <input type="text" name="txtIngreso" id="txtIngreso" class="form-control"/>
                               </div>
                             </div>
 
                             <div class="form-group">
-                              <label>País: <font color="red">*</font></label>
-                              <input type="text" name="pais_cli" id="pais_cli" placeholder="Ingrese un pais" class="form-control" />
+                              <label>Modelo: <font color="red">*</font></label>
+                              <input type="text" name="txtModelo" id="txtModelo" placeholder="Indique el Modelo" class="form-control" />
                             </div>
 
-                            <div class="form-group">
-                              <label>Dirección: <font color="red">*</font></label>
-                              <input type="text" name="direccion_cli" id="direccion_cli" placeholder="Dirección cliente" class="form-control" />
+                            <label>Marca: <font color="red">*</font></label>
+                            <div class="input-group">
+                              <select class="form-control" name="marca" id="marca">
+                                <option value="">........Seleccione........</option>
+                                <?php
+                                $consulta = pg_query("select * from marcas ");
+                                while ($row = pg_fetch_row($consulta)) {
+                                    echo "<option id=$row[0] value=$row[0]>$row[1]</option>";
+                                }
+                                ?>     
+                              </select>
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Agregar</button>
+                              </span>
+                              <!-- <input type="text" name="txtMarca" id="txtMarca" placeholder="Buscar....." class="form-control"/>
+                              <input type="hidden" id="txtMarcaId" name="txtMarcaId" class="form-control"/> -->
                             </div>
+                            <br>
 
                             <div class="form-group">
-                              <label>Comentarios:</label>
-                              <textarea class="form-control" name="notas_cli" id="notas_cli" rows="3"></textarea>
+                              <label>Observaciones:</label>
+                              <textarea class="form-control" name="txtObservaciones" id="txtObservaciones" rows="3"></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>RUC/CI: <font color="red">*</font></label>
-                              <input type="text" name="ruc_ci"  id="ruc_ci" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                              <label>Celular:</label>
-                              <div class="input-group">
-                                <div class="input-group-addon">
-                                  <i class="fa fa-mobile"></i>
-                                </div>
-                                <input type="text" name="nro_celular" id="nro_celular" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label>Ciudad: <font color="red">*</font></label>
-                              <input type="text" name="ciudad_cli" id="ciudad_cli" class="form-control"/>
-                            </div>
-
-                            <div class="form-group">
-                              <label>E-mail:</label>
-                              <div class="input-group">
-                                <div class="input-group-addon">
-                                  <i class="fa fa-envelope"></i>
-                                </div>
-                                <input type="text" name="email" id="email" placeholder="Email" class="form-control"/>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label>Cupo de Crédito: <font color="red">*</font></label>
-                              <div class="input-group">
-                                <div class="input-group-addon">
-                                  <i class="fa fa-money"></i>
-                                </div>
-                                <input type="text" name="cupo_credito" id="cupo_credito" placeholder="0.00" class="form-control"/>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label>Tipo:</label>
-                              <select class="form-control" name="tipo_cli" id="tipo_cli">
-                                <option value="Persona Natural" selected>Persona Natural</option>
-                                <option value="Persona Jurídica">Persona Jurídica</option>     
+                              <label>Tipo Equipo: <font color="red">*</font></label>
+                              <select class="form-control" name="categoria" id="categoria">
+                                <option value="">........Seleccione........</option>
+                                <?php
+                                $consulta = pg_query("select * from categoria ");
+                                while ($row = pg_fetch_row($consulta)) {
+                                    echo "<option id=$row[0] value=$row[0]>$row[1]</option>";
+                                }
+                                ?>     
                               </select>
+                              <!-- <input type="text" name="txtTipoEquipo"  id="txtTipoEquipo" class="form-control" placeholder="Buscar....." />
+                              <input type="hidden" id="txtTipoEquipoId" name="txtTipoEquipoId" class="form-control" /> -->
+                            </div>
+
+                            <div class="form-group">
+                              <label>Fecha Salida: <font color="red">*</font></label>
+                              <div class="input-group">
+                                <div class="input-group-addon">
+                                  <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="txtSalida" id="txtSalida" class="form-control" />
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label>Nro. Serie: <font color="red">*</font></label>
+                              <input type="text" name="txtSerie" id="txtSerie" placeholder="Indique la Serie" class="form-control"/>
+                            </div>
+
+                            <label>Color: <font color="red">*</font></label>
+                            <div class="input-group">
+                              <select class="form-control" name="colores" id="colores">
+                                <option value="">........Seleccione........</option>
+                                <?php
+                                $consulta = pg_query("select * from color ");
+                                while ($row = pg_fetch_row($consulta)) {
+                                    echo "<option id=$row[0] value=$row[0]>$row[1]</option>";
+                                }
+                                ?>     
+                              </select>
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Agregar</button>
+                              </span>
+                              <!-- <input type="text" name="txtColor" id="txtColor" placeholder="Buscar....." class="form-control" />
+                              <input type="hidden" id="txtColorId" name="txtColorId" class="form-control" /> -->
+                            </div><!-- /input-group -->
+                            <br>
+
+                            <div class="form-group">
+                              <label>Accesorios:</label>
+                              <textarea class="form-control" name="txtAccesorios" id="txtAccesorios" rows="3"></textarea>
                             </div>
                           </div>
                         </div>
@@ -154,7 +168,7 @@ include('../menu/app.php');
                       </p> 
                     </div> 
 
-                    <div id="clientes" title="Búsqueda de Clientes" class="">
+                    <div id="bRegistros" title="Búsqueda de Registros" class="">
                       <table id="list"><tr><td></td></tr></table>
                       <div id="pager"></div>
                     </div>
@@ -180,7 +194,7 @@ include('../menu/app.php');
     <script src="../../plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <script src="../../plugins/iCheck/icheck.min.js" type="text/javascript"></script>
     <script src='../../plugins/fastclick/fastclick.min.js'></script>
-    <script src="clientes.js" type="text/javascript"></script>
+    <script src="registroEquipo.js" type="text/javascript"></script>
     <script src="../../dist/js/app.min.js" type="text/javascript"></script>
     <script src="../../dist/js/validCampoFranz.js" type="text/javascript" ></script>
     <script src="../../dist/js/alertify.min.js" type="text/javascript"></script>
