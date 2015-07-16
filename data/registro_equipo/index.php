@@ -85,22 +85,20 @@ include('../menu/app.php');
                                 ?>     
                               </select>
                               <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Agregar</button>
+                                <button class="btn btn-primary" type="button" id="btnMarcas">Agregar</button>
                               </span>
-                              <!-- <input type="text" name="txtMarca" id="txtMarca" placeholder="Buscar....." class="form-control"/>
-                              <input type="hidden" id="txtMarcaId" name="txtMarcaId" class="form-control"/> -->
                             </div>
                             <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Observaciones:</label>
                               <textarea class="form-control" name="txtObservaciones" id="txtObservaciones" rows="3"></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tipo Equipo: <font color="red">*</font></label>
+                            <label>Tipo Equipo: <font color="red">*</font></label>
+                            <div class="input-group">
                               <select class="form-control" name="categoria" id="categoria">
                                 <option value="">........Seleccione........</option>
                                 <?php
@@ -110,11 +108,13 @@ include('../menu/app.php');
                                 }
                                 ?>     
                               </select>
-                              <!-- <input type="text" name="txtTipoEquipo"  id="txtTipoEquipo" class="form-control" placeholder="Buscar....." />
-                              <input type="hidden" id="txtTipoEquipoId" name="txtTipoEquipoId" class="form-control" /> -->
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="btnCategoria">Agregar</button>
+                              </span>
                             </div>
+                            <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Fecha Salida: <font color="red">*</font></label>
                               <div class="input-group">
                                 <div class="input-group-addon">
@@ -141,14 +141,12 @@ include('../menu/app.php');
                                 ?>     
                               </select>
                               <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Agregar</button>
+                                <button class="btn btn-primary" type="button" id="btnColores">Agregar</button>
                               </span>
-                              <!-- <input type="text" name="txtColor" id="txtColor" placeholder="Buscar....." class="form-control" />
-                              <input type="hidden" id="txtColorId" name="txtColorId" class="form-control" /> -->
                             </div><!-- /input-group -->
                             <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Accesorios:</label>
                               <textarea class="form-control" name="txtAccesorios" id="txtAccesorios" rows="3"></textarea>
                             </div>
@@ -165,12 +163,39 @@ include('../menu/app.php');
                         <button class="btn bg-olive margin" id='btnEliminar'><i class="fa fa-remove"></i> Eliminar</button>
                         <button class="btn bg-olive margin" id='btnBuscar'><i class="fa fa-search"></i> Buscar</button>
                         <button class="btn bg-olive margin" id='btnNuevo'><i class="fa fa-pencil"></i> Nuevo</button>
+                        <button class="btn bg-olive margin" id='btnImprimir'><i class="fa fa-print"></i> Imprimir</button>
+                        <button class="btn bg-olive margin" id='btnAtras'><i class="fa fa-backward"></i> Atras</button>
+                        <button class="btn bg-olive margin" id='btnAdelante'>Adelante <i class="fa fa-forward"></i></button>
                       </p> 
                     </div> 
 
                     <div id="bRegistros" title="Búsqueda de Registros" class="">
                       <table id="list"><tr><td></td></tr></table>
                       <div id="pager"></div>
+                    </div>
+
+                    <div id="categorias" title="AGREGAR CATEGORIAS">
+                      <div class="form-group">
+                        <label>Nombre Categoria: <font color="red">*</font></label>
+                        <input type="text" name="nombre_categoria" id="nombre_categoria" placeholder="Ingrese la Categoria" class="form-control"/>
+                      </div>
+                      <button class="btn btn-primary" id='btnGuardarCategoria'>Guardar</button>
+                    </div>
+
+                    <div id="marcas" title="AGREGAR MARCAS">
+                      <div class="form-group">
+                        <label>Nombre Marca: <font color="red">*</font></label>
+                        <input type="text" name="nombre_marca" id="nombre_marca" placeholder="Ingrese una Marca" class="form-control"/>
+                      </div>
+                      <button class="btn btn-primary" id='btnGuardarMarca'>Guardar</button>
+                    </div>
+
+                    <div id="color" title="AGREGAR COLORES">
+                      <div class="form-group">
+                        <label>Nombre Color: <font color="red">*</font></label>
+                        <input type="text" name="nombre_color" id="nombre_color" placeholder="Ingrese un Color" class="form-control"/>
+                      </div>
+                      <button class="btn btn-primary" id='btnGuardarColor'>Guardar</button>
                     </div>
                    
                   </div>

@@ -713,7 +713,8 @@ function inicio() {
     $("#btnNuevo").click(function(e) {
         e.preventDefault();
     });
-     $("#btnImprimir").click(function (){
+
+    $("#btnImprimir").click(function (){
        $.ajax({
         type: "POST",
         url: "../../procesos/validacion.php",
@@ -728,6 +729,7 @@ function inicio() {
         }
         });        
     });
+
     $("#btnAtras").click(function(e) {
         e.preventDefault();
     });

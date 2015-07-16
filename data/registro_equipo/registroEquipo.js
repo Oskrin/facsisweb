@@ -25,6 +25,117 @@ var dialogos =
     modal: true
 };
 
+var dialogo_categoria =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 250,
+    height: 180,
+    modal: true
+};
+
+var dialogo_marca =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 230,
+    height: 180,
+    modal: true
+};
+
+var dialogo_color =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 230,
+    height: 180,
+    modal: true
+};
+
+function abrirCategoria() {
+    $("#categorias").dialog("open");
+}
+
+function abrirMarca() {
+    $("#marcas").dialog("open");
+}
+
+function abrirColor() {
+    $("#color").dialog("open");
+}
+
+function agregar_categoria() {
+    if ($("#nombre_categoria").val() === "") {
+        $("#nombre_categoria").focus();
+        alertify.error("Nombre de la Categoria");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_categoria.php",
+            data: "nombre_categoria=" + $("#nombre_categoria").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_categoria").val("");
+                    $("#categoria").load("categorias_combos.php");
+                    $("#categorias").dialog("close");
+                }else{
+                    $("#nombre_categoria").val("");
+                    alertify.error("Error.... La categoria ya existe");
+                }
+            }
+        });
+    }
+}
+
+function agregar_marca() {
+    if ($("#nombre_marca").val() === "") {
+        $("#nombre_marca").focus();
+        alertify.error("Nombre de la Marca");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_marca.php",
+            data: "nombre_marca=" + $("#nombre_marca").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_marca").val("");
+                    $("#marca").load("marcas_combos.php");
+                    $("#marcas").dialog("close");
+                }else{
+                    $("#nombre_marca").val("");
+                    alertify.error("Error.... La marca ya existe");
+                }
+            }
+        });
+    }
+}
+
+function agregar_color() {
+    if ($("#nombre_color").val() === "") {
+        $("#nombre_color").focus();
+        alertify.error("Nombre del Color");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_color.php",
+            data: "nombre_color=" + $("#nombre_color").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_color").val("");
+                    $("#colores").load("colores_combos.php");
+                    $("#color").dialog("close");
+                }else{
+                    $("#nombre_color").val("");
+                    alertify.error("Error.... El color ya existe");
+                }
+            }
+        });
+    }
+}
+
 function getCurrentTime() {
     var CurrentTime = "";
     try {
@@ -91,17 +202,11 @@ function guardarRegistro() {
                                     var val = data;
                                     if (val == 0) {
                                         alertify.alert("Datos Agregados Correctamente", function(){
-                                        // id = $("#txtRegistro").val();
-                                        // window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
-                                        // limpiarDatos();
-                                        // $("#txtRegistro").val(parseInt(id) + 1);   
+                                        id = $("#txtRegistro").val();
+                                        window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
+                                        limpiarDatos();
+                                        $("#txtRegistro").val(parseInt(id) + 1);   
                                         });
-
-                                        // alertify.success('Datos Agregados Correctamente');                                  
-                                        // setTimeout(function() {
-                                        // location.reload();
-                                        // }, 1000);
-
                                     } 
                                     if (val == 1) {
                                         alertify.alert("Error.. durante el proceso");
@@ -167,109 +272,98 @@ function modificarRegistro(e){
 }
 
 function flecha_atras(){
-    var valor = $("#txtRegistro").val();
-    ///////////////////llamar facturas flechas primera parte/////
-    $("#btnGuardar").attr("disabled", true);
+$.ajax({
+   type: "POST",
+   url: "../../procesos/flechas.php",
+   data: "comprobante=" + $("#txtRegistro").val() + "&tabla=" + "registro_equipo" + "&id_tabla=" + "id_registro" + "&tipo=" + 1,
+   success: function(data) {
+       var val = data;
+       if(val != ""){
+            $("#txtRegistro").val(val);
+            var valor = $("#txtRegistro").val();
+            
+              ///////////////////llamar proforma flechas primera parte/////
+            $("#btnGuardar").attr("disabled", true);
 
-    $.getJSON('../procesos/retornar_registro_equipo.php?com=' + valor, function(data) {
-        var tama = data.length;
-        if (tama !== 0) {
-            for (var i = 0; i < tama; i = i + 17) {
-                    
-                $("#txtRegistro").val(data[i]);
-                $("#txtClienteId").val(data[i + 1]);
-                $("#txtCliente").val(data[i + 2]);
-                $("#txtIngreso").val(data[i + 3]);
-                $("#txtSalida").val(data[i + 4]);
-                $("#txtTipoEquipoId").val(data[i + 5]);
-                $("#txtTipoEquipo").val(data[i + 6]);
-                $("#txtModelo").val(data[i + 7]);
-                $("#txtSerie").val(data[i + 8]);
-                $("#txtColorId").val(data[i + 9]);
-                $("#txtColor").val(data[i + 10]);
-                $("#txtMarcaId").val(data[i + 11]);
-                $("#txtMarca").val(data[i + 12]);
-                $("#resp").val(data[i + 13 ] + " " + data[i + 14 ] );
-                $("#txtObservaciones").val(data[i + 15]);
-                $("#txtAccesorios").val(data[i + 16]);
-            }
-        }else{
-            alertify.alert("No hay mas registros posteriores!!");
-        }
-    });
+            $.getJSON('retornar_registro_equipo.php?com=' + valor, function(data) {
+                var tama = data.length;
+                if (tama !== 0) {
+                    for (var i = 0; i < tama; i = i + 14) {
+                        $("#txtClienteId").val(data[i]);
+                        $("#txtCliente").val(data[i + 1]);
+                        $("#categoria").val(data[i + 2]);
+                        $("#txtIngreso").val(data[i + 4]);
+                        $("#txtSalida").val(data[i + 5]);
+                        $("#txtModelo").val(data[i + 6]);
+                        $("#txtSerie").val(data[i + 7]);
+                        $("#marca").val(data[i + 8]);
+                        $("#colores").val(data[i + 10]);
+                        $("#txtObservaciones").val(data[i + 12]);
+                        $("#txtAccesorios").val(data[i + 13]);
+                    }
+                }
+            }); 
+       }else{
+           alertify.alert("No hay mas registros posteriores!!");
+       }
+   }
+}); 
 } 
 
 function flecha_siguiente(){
-    var valor = $("#txtRegistro").val();
-    var compro2=  $("#comprobante2").val();
-    ///////////////////llamar facturas flechas primera parte/////
-    if(parseInt(valor) === parseInt(compro2)){
-        alert("Error... Ingreso no creado");
-    }else{
-        $("#btnGuardar").attr("disabled", true);
-        $.getJSON('../procesos/retornar_registro_equipo2.php?com=' + valor, function(data) {
-            var tama = data.length;
-            if (tama !== 0) {
-                for (var i = 0; i < tama; i = i + 17) {
-                    
-                    $("#txtRegistro").val(data[i]);
-                    $("#txtClienteId").val(data[i + 1]);
-                    $("#txtCliente").val(data[i + 2]);
-                    $("#txtIngreso").val(data[i + 3]);
-                    $("#txtSalida").val(data[i + 4]);
-                    $("#txtTipoEquipoId").val(data[i + 5]);
-                    $("#txtTipoEquipo").val(data[i + 6]);
-                    $("#txtModelo").val(data[i + 7]);
-                    $("#txtSerie").val(data[i + 8]);
-                    $("#txtColorId").val(data[i + 9]);
-                    $("#txtColor").val(data[i + 10]);
-                    $("#txtMarcaId").val(data[i + 11]);
-                    $("#txtMarca").val(data[i + 12]);
-                    $("#resp").val(data[i + 13 ] + " " + data[i + 14 ] );
-                    $("#txtObservaciones").val(data[i + 15]);
-                    $("#txtAccesorios").val(data[i + 16]);
-                }
-            }else{
-            alertify.alert("No hay mas registros superiores!!");
+    $.ajax({
+       type: "POST",
+       url: "../../procesos/flechas.php",
+       data: "comprobante=" + $("#txtRegistro").val() + "&tabla=" + "registro_equipo" + "&id_tabla=" + "id_registro" + "&tipo=" + 2,
+       success: function(data) {
+           var val = data;
+           if(val != ""){
+                $("#txtRegistro").val(val);
+                var valor = $("#txtRegistro").val();
+                
+                  ///////////////////llamar proforma flechas primera parte/////
+                $("#btnGuardar").attr("disabled", true);
+
+                $.getJSON('retornar_registro_equipo.php?com=' + valor, function(data) {
+                    var tama = data.length;
+                    if (tama !== 0) {
+                        for (var i = 0; i < tama; i = i + 14) {
+                            $("#txtClienteId").val(data[i]);
+                            $("#txtCliente").val(data[i + 1]);
+                            $("#categoria").val(data[i + 2]);
+                            $("#txtIngreso").val(data[i + 4]);
+                            $("#txtSalida").val(data[i + 5]);
+                            $("#txtModelo").val(data[i + 6]);
+                            $("#txtSerie").val(data[i + 7]);
+                            $("#marca").val(data[i + 8]);
+                            $("#colores").val(data[i + 10]);
+                            $("#txtObservaciones").val(data[i + 12]);
+                            $("#txtAccesorios").val(data[i + 13]);
+                        }
+                    }
+                }); 
+           }else{
+               alertify.alert("No hay mas registros superiores!!");
            }
-        });
-    }
+       }
+    }); 
 } 
 
-function limpiarDatos()
-{
+function limpiarDatos() {
     $("input").val("");
     $("textarea").val("");
 }
-function abrirDialogo(e)
-{
+
+function abrirDialogo(e) {
     $("#bRegistros").dialog("open");
     $("#list").trigger("reloadGrid");
 }
 
-function limpiar_campo1(){
-    if($("#txtCliente").val() === ""){
+function limpiar_campo() {
+    if($("#txtCliente").val() === "") {
         $("#txtClienteId").val("");
     }
 }
-
-// function limpiar_campo2(){
-//     if($("#txtTipoEquipo").val() === ""){
-//         $("#txtTipoEquipoId").val("");
-//     }
-// }
-
-// function limpiar_campo3(){
-//     if($("#txtColor").val() === ""){
-//         $("#txtColorId").val("");
-//     }
-// }
-
-// function limpiar_campo4(){
-//     if($("#txtMarca").val() === ""){
-//         $("#txtMarcaId").val("");
-//     }
-// }
 
 function inicio() {
     /////////////cambiar idioma///////
@@ -317,8 +411,21 @@ function inicio() {
     $("#btnAdelante").click(function(e) {
         e.preventDefault();
     });
-    $("#btnImprimir").click(function (){        
-        window.open("../reportes/reportes/reporteRegistro.php?id=" + $("#txtRegistro").val());
+
+    $("#btnImprimir").click(function (){
+       $.ajax({
+        type: "POST",
+        url: "../../procesos/validacion.php",
+        data: "comprobante=" + $("#txtRegistro").val() + "&tabla=" + "registro_equipo" + "&id_tabla=" + "id_registro" + "&tipo=" + 1,
+        success: function(data) {
+            var val = data;
+            if(val != "") {
+                window.open("../reportes/reportes/reporteRegistro.php?id=" + $("#txtRegistro").val());  
+            } else {
+              alertify.alert("Ingreso no creado!!");
+            }   
+        }
+        });        
     });
 
     $("#bRegistros").dialog(dialogos);
@@ -330,12 +437,18 @@ function inicio() {
     $("#btnNuevo").on('click', limpiarDatos);
     $("#txtIngreso").datepicker(formatoFecha);
     $("#txtSalida").datepicker(formatoFecha1);
+    $("#btnCategoria").on("click", abrirCategoria);
+    $("#btnGuardarCategoria").on("click", agregar_categoria);
+    $("#btnMarcas").on("click", abrirMarca);
+    $("#btnGuardarMarca").on("click", agregar_marca);
+    $("#btnColores").on("click", abrirColor);
+    $("#btnGuardarColor").on("click", agregar_color);
     
-    $("#txtCliente").on("keyup", limpiar_campo1);
-    // $("#txtTipoEquipo").on("keyup", limpiar_campo2);
-    // $("#txtColor").on("keyup", limpiar_campo3);
-    // $("#txtMarca").on("keyup", limpiar_campo4);
+    $("#txtCliente").on("keyup", limpiar_campo);
 
+    $("#categorias").dialog(dialogo_categoria);
+    $("#marcas").dialog(dialogo_marca);
+    $("#color").dialog(dialogo_color);
 
     //////////////////BUSCADORES////////////////////
     $("#txtCliente").autocomplete({
