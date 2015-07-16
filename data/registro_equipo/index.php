@@ -87,20 +87,18 @@ include('../menu/app.php');
                               <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button">Agregar</button>
                               </span>
-                              <!-- <input type="text" name="txtMarca" id="txtMarca" placeholder="Buscar....." class="form-control"/>
-                              <input type="hidden" id="txtMarcaId" name="txtMarcaId" class="form-control"/> -->
                             </div>
                             <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Observaciones:</label>
                               <textarea class="form-control" name="txtObservaciones" id="txtObservaciones" rows="3"></textarea>
                             </div>
                           </div>
 
                           <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Tipo Equipo: <font color="red">*</font></label>
+                            <label>Tipo Equipo: <font color="red">*</font></label>
+                            <div class="input-group">
                               <select class="form-control" name="categoria" id="categoria">
                                 <option value="">........Seleccione........</option>
                                 <?php
@@ -110,11 +108,13 @@ include('../menu/app.php');
                                 }
                                 ?>     
                               </select>
-                              <!-- <input type="text" name="txtTipoEquipo"  id="txtTipoEquipo" class="form-control" placeholder="Buscar....." />
-                              <input type="hidden" id="txtTipoEquipoId" name="txtTipoEquipoId" class="form-control" /> -->
+                              <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Agregar</button>
+                              </span>
                             </div>
+                            <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Fecha Salida: <font color="red">*</font></label>
                               <div class="input-group">
                                 <div class="input-group-addon">
@@ -143,12 +143,10 @@ include('../menu/app.php');
                               <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button">Agregar</button>
                               </span>
-                              <!-- <input type="text" name="txtColor" id="txtColor" placeholder="Buscar....." class="form-control" />
-                              <input type="hidden" id="txtColorId" name="txtColorId" class="form-control" /> -->
                             </div><!-- /input-group -->
                             <br>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -5px">
                               <label>Accesorios:</label>
                               <textarea class="form-control" name="txtAccesorios" id="txtAccesorios" rows="3"></textarea>
                             </div>
@@ -165,6 +163,9 @@ include('../menu/app.php');
                         <button class="btn bg-olive margin" id='btnEliminar'><i class="fa fa-remove"></i> Eliminar</button>
                         <button class="btn bg-olive margin" id='btnBuscar'><i class="fa fa-search"></i> Buscar</button>
                         <button class="btn bg-olive margin" id='btnNuevo'><i class="fa fa-pencil"></i> Nuevo</button>
+                        <button class="btn bg-olive margin" id='btnImprimir'><i class="fa fa-print"></i> Imprimir</button>
+                        <button class="btn bg-olive margin" id='btnAtras'><i class="fa fa-backward"></i> Atras</button>
+                        <button class="btn bg-olive margin" id='btnAdelante'>Adelante <i class="fa fa-forward"></i></button>
                       </p> 
                     </div> 
 

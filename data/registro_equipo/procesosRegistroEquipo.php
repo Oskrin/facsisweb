@@ -5,7 +5,14 @@ session_start();
 $data=1;
 
 if($_POST['tipo']=="g") {
-   pg_query("insert into registro_equipo values('$_POST[txtRegistro]','$_POST[colores]','$_POST[marca]','$_POST[txtClienteId]','$_POST[txtSerie]','$_POST[txtObservaciones]','$_POST[txtAccesorios]','0','$_SESSION[id]','$_POST[txtIngreso]','$_POST[categoria]','$_POST[txtModelo]','$_POST[txtSalida]','0','')");
+   $cont = 0;	
+   $consulta = pg_query("select max(id_registro) from registro_equipo");
+    while ($row = pg_fetch_row($consulta)) {
+        $cont = $row[0];
+    }
+    $cont++;
+
+   pg_query("insert into registro_equipo values('$cont','$_POST[colores]','$_POST[marca]','$_POST[txtClienteId]','$_POST[txtSerie]','$_POST[txtObservaciones]','$_POST[txtAccesorios]','0','$_SESSION[id]','$_POST[txtIngreso]','$_POST[categoria]','$_POST[txtModelo]','$_POST[txtSalida]','0','')");
    $data = 0;
 } else {
    if($_POST['tipo']=="m") {	
