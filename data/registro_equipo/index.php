@@ -85,7 +85,7 @@ include('../menu/app.php');
                                 ?>     
                               </select>
                               <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Agregar</button>
+                                <button class="btn btn-primary" type="button" id="btnMarcas">Agregar</button>
                               </span>
                             </div>
                             <br>
@@ -109,7 +109,7 @@ include('../menu/app.php');
                                 ?>     
                               </select>
                               <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Agregar</button>
+                                <button class="btn btn-primary" type="button" id="btnCategoria">Agregar</button>
                               </span>
                             </div>
                             <br>
@@ -141,7 +141,7 @@ include('../menu/app.php');
                                 ?>     
                               </select>
                               <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Agregar</button>
+                                <button class="btn btn-primary" type="button" id="btnColores">Agregar</button>
                               </span>
                             </div><!-- /input-group -->
                             <br>
@@ -172,6 +172,23 @@ include('../menu/app.php');
                     <div id="bRegistros" title="Búsqueda de Registros" class="">
                       <table id="list"><tr><td></td></tr></table>
                       <div id="pager"></div>
+                    </div>
+
+                    <div id="categorias" title="AGREGAR CATEGORIA">
+                      <div class="form-group">
+                        <label>Nombre Categoria: <font color="red">*</font></label>
+                        <input type="text" name="nombre_categoria" id="nombre_categoria" placeholder="Ingrese la Categoria" class="form-control"/>
+                      </div>
+                      <button class="btn btn-primary" id='btnGuardarCategoria'>Guardar</button>
+                    </div>
+
+                    <div id="marcas" title="AGREGAR MARCA">
+                      <div class="form-group">
+                        <label>Nombre Marca: <font color="red">*</font></label>
+                        <input type="text" name="nombre_marca" id="nombre_marca" placeholder="Ingrese una Marca" class="form-control"/>
+                      </div>
+
+                      <button class="btn btn-primary" id='btnGuardarMarca'>Guardar</button>
                     </div>
                    
                   </div>

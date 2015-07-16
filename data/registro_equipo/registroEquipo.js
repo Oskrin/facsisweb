@@ -25,6 +25,89 @@ var dialogos =
     modal: true
 };
 
+var dialogo_categoria =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 250,
+    height: 180,
+    modal: true
+};
+
+var dialogo_marca =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 230,
+    height: 180,
+    modal: true
+};
+
+var dialogo_color =
+{
+    autoOpen: false,
+    resizable: false,
+    width: 230,
+    height: 180,
+    modal: true
+};
+
+function abrirCategoria() {
+    $("#categorias").dialog("open");
+}
+
+function abrirMarca() {
+    $("#marcas").dialog("open");
+}
+
+function agregar_categoria() {
+    if ($("#nombre_categoria").val() === "") {
+        $("#nombre_categoria").focus();
+        alertify.error("Nombre Categoria");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_categoria.php",
+            data: "nombre_categoria=" + $("#nombre_categoria").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_categoria").val("");
+                    $("#categoria").load("categorias_combos.php");
+                    $("#categorias").dialog("close");
+                }else{
+                    $("#nombre_categoria").val("");
+                    alertify.error("Error.... La categoria ya existe");
+                }
+            }
+        });
+    }
+}
+
+function agregar_marca() {
+    if ($("#nombre_marca").val() === "") {
+        $("#nombre_marca").focus();
+        alertify.error("Nombre Marca");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_marca.php",
+            data: "nombre_marca=" + $("#nombre_marca").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_marca").val("");
+                    $("#marca").load("marcas_combos.php");
+                    $("#marcas").dialog("close");
+                }else{
+                    $("#nombre_marca").val("");
+                    alertify.error("Error.... La marca ya existe");
+                }
+            }
+        });
+    }
+}
+
 function getCurrentTime() {
     var CurrentTime = "";
     try {
@@ -238,19 +321,18 @@ function flecha_siguiente(){
     }); 
 } 
 
-function limpiarDatos()
-{
+function limpiarDatos() {
     $("input").val("");
     $("textarea").val("");
 }
-function abrirDialogo(e)
-{
+
+function abrirDialogo(e) {
     $("#bRegistros").dialog("open");
     $("#list").trigger("reloadGrid");
 }
 
-function limpiar_campo1(){
-    if($("#txtCliente").val() === ""){
+function limpiar_campo() {
+    if($("#txtCliente").val() === "") {
         $("#txtClienteId").val("");
     }
 }
@@ -327,8 +409,15 @@ function inicio() {
     $("#btnNuevo").on('click', limpiarDatos);
     $("#txtIngreso").datepicker(formatoFecha);
     $("#txtSalida").datepicker(formatoFecha1);
+    $("#btnCategoria").on("click", abrirCategoria);
+    $("#btnGuardarCategoria").on("click", agregar_categoria);
+    $("#btnMarcas").on("click", abrirMarca);
+    $("#btnGuardarMarca").on("click", agregar_marca);
     
-    $("#txtCliente").on("keyup", limpiar_campo1);
+    $("#txtCliente").on("keyup", limpiar_campo);
+
+    $("#categorias").dialog(dialogo_categoria);
+    $("#marcas").dialog(dialogo_marca);
 
     //////////////////BUSCADORES////////////////////
     $("#txtCliente").autocomplete({
