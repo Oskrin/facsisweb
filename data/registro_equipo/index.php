@@ -174,7 +174,7 @@ include('../menu/app.php');
                       <div id="pager"></div>
                     </div>
 
-                    <div id="categorias" title="AGREGAR CATEGORIA">
+                    <div id="categorias" title="AGREGAR CATEGORIAS">
                       <div class="form-group">
                         <label>Nombre Categoria: <font color="red">*</font></label>
                         <input type="text" name="nombre_categoria" id="nombre_categoria" placeholder="Ingrese la Categoria" class="form-control"/>
@@ -182,13 +182,20 @@ include('../menu/app.php');
                       <button class="btn btn-primary" id='btnGuardarCategoria'>Guardar</button>
                     </div>
 
-                    <div id="marcas" title="AGREGAR MARCA">
+                    <div id="marcas" title="AGREGAR MARCAS">
                       <div class="form-group">
                         <label>Nombre Marca: <font color="red">*</font></label>
                         <input type="text" name="nombre_marca" id="nombre_marca" placeholder="Ingrese una Marca" class="form-control"/>
                       </div>
-
                       <button class="btn btn-primary" id='btnGuardarMarca'>Guardar</button>
+                    </div>
+
+                    <div id="color" title="AGREGAR COLORES">
+                      <div class="form-group">
+                        <label>Nombre Color: <font color="red">*</font></label>
+                        <input type="text" name="nombre_color" id="nombre_color" placeholder="Ingrese un Color" class="form-control"/>
+                      </div>
+                      <button class="btn btn-primary" id='btnGuardarColor'>Guardar</button>
                     </div>
                    
                   </div>

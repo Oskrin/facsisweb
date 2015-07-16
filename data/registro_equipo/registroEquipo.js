@@ -60,10 +60,14 @@ function abrirMarca() {
     $("#marcas").dialog("open");
 }
 
+function abrirColor() {
+    $("#color").dialog("open");
+}
+
 function agregar_categoria() {
     if ($("#nombre_categoria").val() === "") {
         $("#nombre_categoria").focus();
-        alertify.error("Nombre Categoria");
+        alertify.error("Nombre de la Categoria");
     }else{
         $.ajax({
             type: "POST",
@@ -87,7 +91,7 @@ function agregar_categoria() {
 function agregar_marca() {
     if ($("#nombre_marca").val() === "") {
         $("#nombre_marca").focus();
-        alertify.error("Nombre Marca");
+        alertify.error("Nombre de la Marca");
     }else{
         $.ajax({
             type: "POST",
@@ -102,6 +106,30 @@ function agregar_marca() {
                 }else{
                     $("#nombre_marca").val("");
                     alertify.error("Error.... La marca ya existe");
+                }
+            }
+        });
+    }
+}
+
+function agregar_color() {
+    if ($("#nombre_color").val() === "") {
+        $("#nombre_color").focus();
+        alertify.error("Nombre del Color");
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "guardar_color.php",
+            data: "nombre_color=" + $("#nombre_color").val(),
+            success: function(data) {
+                var val = data;
+                if (val == 1) {
+                    $("#nombre_color").val("");
+                    $("#colores").load("colores_combos.php");
+                    $("#color").dialog("close");
+                }else{
+                    $("#nombre_color").val("");
+                    alertify.error("Error.... El color ya existe");
                 }
             }
         });
@@ -413,11 +441,14 @@ function inicio() {
     $("#btnGuardarCategoria").on("click", agregar_categoria);
     $("#btnMarcas").on("click", abrirMarca);
     $("#btnGuardarMarca").on("click", agregar_marca);
+    $("#btnColores").on("click", abrirColor);
+    $("#btnGuardarColor").on("click", agregar_color);
     
     $("#txtCliente").on("keyup", limpiar_campo);
 
     $("#categorias").dialog(dialogo_categoria);
     $("#marcas").dialog(dialogo_marca);
+    $("#color").dialog(dialogo_color);
 
     //////////////////BUSCADORES////////////////////
     $("#txtCliente").autocomplete({
