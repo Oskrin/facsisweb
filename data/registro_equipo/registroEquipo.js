@@ -203,7 +203,7 @@ function guardarRegistro() {
                                     if (val == 0) {
                                         alertify.alert("Datos Agregados Correctamente", function(){
                                         id = $("#txtRegistro").val();
-                                        window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
+                                        window.open("../../reportes/reporteRegistro.php?id=" + id);
                                         limpiarDatos();
                                         $("#txtRegistro").val(parseInt(id) + 1);   
                                         });
@@ -420,7 +420,7 @@ function inicio() {
         success: function(data) {
             var val = data;
             if(val != "") {
-                window.open("../reportes/reportes/reporteRegistro.php?id=" + $("#txtRegistro").val());  
+                window.open("../../reportes/reporteRegistro.php?id=" + $("#txtRegistro").val());  
             } else {
               alertify.alert("Ingreso no creado!!");
             }   
