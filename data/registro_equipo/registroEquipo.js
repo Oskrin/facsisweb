@@ -91,10 +91,10 @@ function guardarRegistro() {
                                     var val = data;
                                     if (val == 0) {
                                         alertify.alert("Datos Agregados Correctamente", function(){
-                                        // id = $("#txtRegistro").val();
-                                        // window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
-                                        // limpiarDatos();
-                                        // $("#txtRegistro").val(parseInt(id) + 1);   
+                                        id = $("#txtRegistro").val();
+                                        window.open("../reportes/reportes/reporteRegistro.php?id=" + id);
+                                        limpiarDatos();
+                                        $("#txtRegistro").val(parseInt(id) + 1);   
                                         });
 
                                         // alertify.success('Datos Agregados Correctamente');                                  
