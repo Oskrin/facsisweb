@@ -9,7 +9,7 @@ if($_POST['tipo']=="g") {
    $data = 0;
 } else {
    if($_POST['tipo']=="m") {	
-	pg_query("update registro_equipo set id_registro='$_POST[txtRegistro]',id_color='$_POST[txtColorId]',id_marca='$_POST[txtMarcaId]',id_cliente='$_POST[txtClienteId]',nro_serie='$_POST[txtSerie]',observaciones='$_POST[txtObservaciones]',detalles='$_POST[txtAccesorios]',estado='0',id_usuario='$_SESSION[id]',fecha_ingreso='$_POST[txtIngreso]',id_categoria='$_POST[txtTipoEquipoId]',modelo='$_POST[txtModelo]',fecha_salida='$_POST[txtSalida]' where id_registro='$_POST[txtRegistro]'");
+	pg_query("update registro_equipo set id_registro='$_POST[txtRegistro]',id_color='$_POST[colores]',id_marca='$_POST[marca]',id_cliente='$_POST[txtClienteId]',nro_serie='$_POST[txtSerie]',observaciones='$_POST[txtObservaciones]',detalles='$_POST[txtAccesorios]',estado='0',id_usuario='$_SESSION[id]',fecha_ingreso='$_POST[txtIngreso]',id_categoria='$_POST[categoria]',modelo='$_POST[txtModelo]',fecha_salida='$_POST[txtSalida]' where id_registro='$_POST[txtRegistro]'");
 	$data = 0;
    }
 }

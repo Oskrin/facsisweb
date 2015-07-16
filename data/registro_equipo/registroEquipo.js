@@ -79,8 +79,8 @@ function guardarRegistro() {
                         $("#marca").focus(); 
                         alertify.error("Ingrese un marca");
                     }else{
-                        if($("#color").val() === ""){
-                            $("#color").focus();
+                        if($("#colores").val() === ""){
+                            $("#colores").focus();
                             alertify.error("Ingrese una color");
                         }else{
                             $.ajax({
@@ -121,8 +121,8 @@ function modificarRegistro(e){
         $("#txtCliente").focus(); 
         alertify.error("Ingrese un registro");
     }else{
-        if($("#txtTipoEquipoId").val() === ""){
-            $("#txtTipoEquipo").focus(); 
+        if($("#categoria").val() === ""){
+            $("#categoria").focus(); 
             alertify.error("Ingrese el tipo de equipo");
         }else{
             if($("#txtModelo").val() === ""){
@@ -133,18 +133,18 @@ function modificarRegistro(e){
                     $("#txtSerie").focus();
                     alertify.error("Ingrese la serie");
                 }else{
-                    if($("#txtColorId").val() === ""){
-                        $("#txtColor").focus(); 
-                        alertify.error("Ingrese un color");
+                    if($("#marca").val() === ""){
+                        $("#marca").focus(); 
+                        alertify.error("Ingrese un marca");
                     }else{
-                        if($("#txtMarcaId").val() === ""){
-                            $("#txtMarca").focus();
-                            alertify.error("Ingrese una marca");
+                        if($("#colores").val() === ""){
+                            $("#colores").focus();
+                            alertify.error("Ingrese una color");
                         }else{
                             $.ajax({
                                 type: "POST",
-                                url: "../procesos/procesosRegistroEquipo.php",
-                                data: "txtRegistro=" + $("#txtRegistro").val() + "&txtClienteId=" + $("#txtClienteId").val() + "&txtIngreso=" + $("#txtIngreso").val() + "&txtTipoEquipoId=" + $("#txtTipoEquipoId").val() + "&txtModelo=" + $("#txtModelo").val() + "&txtSerie=" + $("#txtSerie").val() + "&txtColorId=" + $("#txtColorId").val() + "&txtMarcaId=" + $("#txtMarcaId").val() + "&txtObservaciones=" + $("#txtObservaciones").val() + "&txtAccesorios=" + $("#txtAccesorios").val() + "&txtSalida=" + $("#txtSalida").val() + "&tipo=" + "m",
+                                url: "procesosRegistroEquipo.php",
+                                data: $("#registro_form").serialize() + "&tipo=" + "m",
                                 success: function(data) {
                                     var val = data; 
                                     if (val == 0) {
@@ -253,23 +253,23 @@ function limpiar_campo1(){
     }
 }
 
-function limpiar_campo2(){
-    if($("#txtTipoEquipo").val() === ""){
-        $("#txtTipoEquipoId").val("");
-    }
-}
+// function limpiar_campo2(){
+//     if($("#txtTipoEquipo").val() === ""){
+//         $("#txtTipoEquipoId").val("");
+//     }
+// }
 
-function limpiar_campo3(){
-    if($("#txtColor").val() === ""){
-        $("#txtColorId").val("");
-    }
-}
+// function limpiar_campo3(){
+//     if($("#txtColor").val() === ""){
+//         $("#txtColorId").val("");
+//     }
+// }
 
-function limpiar_campo4(){
-    if($("#txtMarca").val() === ""){
-        $("#txtMarcaId").val("");
-    }
-}
+// function limpiar_campo4(){
+//     if($("#txtMarca").val() === ""){
+//         $("#txtMarcaId").val("");
+//     }
+// }
 
 function inicio() {
     /////////////cambiar idioma///////
@@ -332,9 +332,9 @@ function inicio() {
     $("#txtSalida").datepicker(formatoFecha1);
     
     $("#txtCliente").on("keyup", limpiar_campo1);
-    $("#txtTipoEquipo").on("keyup", limpiar_campo2);
-    $("#txtColor").on("keyup", limpiar_campo3);
-    $("#txtMarca").on("keyup", limpiar_campo4);
+    // $("#txtTipoEquipo").on("keyup", limpiar_campo2);
+    // $("#txtColor").on("keyup", limpiar_campo3);
+    // $("#txtMarca").on("keyup", limpiar_campo4);
 
 
     //////////////////BUSCADORES////////////////////
