@@ -103,7 +103,7 @@ function agregar_marca() {
                     $("#nombre_marca").val("");
                     $("#marca").load("marcas_combos.php");
                     $("#marcas").dialog("close");
-                }else{
+                } else {
                     $("#nombre_marca").val("");
                     alertify.error("Error.... La marca ya existe");
                 }
@@ -170,27 +170,27 @@ function getCurrentTime() {
 }
 
 function guardarRegistro() {
-    if($("#txtClienteId").val() === ""){
+    if($("#txtClienteId").val() === "") {
         $("#txtCliente").focus(); 
         alertify.error("Ingrese un cliente");
     }else{
-        if($("#categoria").val() === ""){
+        if($("#categoria").val() === "") {
              $("#categoria").focus();
             alertify.error("Ingrese el tipo de equipo");
         }else{
-            if($("#txtModelo").val() === ""){
+            if($("#txtModelo").val() === "") {
                 $("#txtModelo").focus(); 
                 alertify.error("Ingrese un modelo");
             }else{
-                if($("#txtSerie").val() === ""){
+                if($("#txtSerie").val() === "") {
                     $("#txtSerie").focus();
                     alertify.error("Ingrese la serie");
                 }else{
-                    if($("#marca").val() === ""){
+                    if($("#marca").val() === "") {
                         $("#marca").focus(); 
                         alertify.error("Ingrese un marca");
                     }else{
-                        if($("#colores").val() === ""){
+                        if($("#colores").val() === "") {
                             $("#colores").focus();
                             alertify.error("Ingrese una color");
                         }else{
